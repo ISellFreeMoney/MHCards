@@ -126,23 +126,54 @@ function drawcards() {
     ]
     let joueur = document.getElementById("playercount").value;
     let master = document.querySelector(".master").checked;
+    let cardcount = 0;
     let end = ""
     var list = [];
     const resetButton = document.createElement('button');
     resetButton.textContent = "Recharger la page"
 
+    switch (joueur) {
+        case "2":
+            cardcount = 10;
+            console.log("2 joueurs", joueur);
+            break;
+        case "3":
+            cardcount = 8;
+            console.log("3 joueurs", joueur);
+            break;
 
-    console.log(joueur, master)
+        case "4":
+            cardcount = 7
+            console.log("4 joueurs", joueur);
+            break;
+
+        case "5":
+            cardcount = 6
+            console.log("5 joueurs", joueur);
+            break;
+
+        case "1":
+            alert('Il faut être minimum 2 pour jouer')
+            console.log("1 joueurs", joueur);
+            return;
+
+        default:
+            cardcount = 5;
+            console.log("Plus de 6 joueurs", joueur);
+            break;
+
+    }
+
 
     if(master){
-        for (let index = 0; index < joueur; index++) {
+        for (let i = 0; i < cardcount; i++) {
             const random = Math.floor(Math.random() * listrebondissement.length);
             list.push(listrebondissement.splice(random, 1)[0])
         }
     } else {
         const randomEnd = Math.floor(Math.random() * listend.length);
 
-        for (let index = 0; index < joueur * 2; index++) {
+        for (let index = 0; index < cardcount; index++) {
             const random = Math.floor(Math.random() * listcards.length);
             list.push(listcards.splice(random, 1)[0])
         }
@@ -165,7 +196,6 @@ function showcard(list, end) {
     cards.classList.add("list");
     const endcard = document.createTextNode(end)
     for (const card in list) {
-        console.log(list[card]);
         const carditem = document.createElement("p")
         const cardaff = document.createTextNode(list[card])
         carditem.classList.add("item")
